@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "product": "TRACK-PRO Match",
+    "title": "เครือข่ายการผลิตที่มองเห็นได้ตั้งแต่ต้นทางถึงส่งมอบ",
+    "period": "เม.ย.–ก.ย. 2026",
+    "as_of": "2026-09-30",
+    "data_status": "SAMPLE DATA",
+    "description": "ข้อมูลตัวอย่างที่จำลองตาม schema ของ TRACK-PRO Match เพื่อสื่อสารภาพรวมเครือข่าย การจับคู่ และคุณภาพงาน ไม่ใช่ข้อมูล production database"
+  },
+  "executive_summary": {
+    "headline": "จาก 14 สู่องค์กรในเครือข่าย 52 แห่งภายใน 6 เดือน",
+    "body": "TRACK-PRO Match เชื่อมโรงหล่อและโรงงานกึ่งโลหะให้ค้นหา capability ที่ตรงกัน พร้อมติดตามการจับคู่ ใบเสนอราคา Job Order และผล QC ได้ใน flow เดียว",
+    "highlights": [
+      {"value": "52", "label": "องค์กรในเครือข่าย", "detail": "+271% จากจุดเริ่มต้น"},
+      {"value": "78.4", "label": "คะแนนจับคู่เฉลี่ย", "detail": "เต็ม 100"},
+      {"value": "96.8%", "label": "Yield ล่าสุด", "detail": "+3.7 จุด จาก เม.ย."},
+      {"value": "97.3%", "label": "QC pass rate", "detail": "จากภาพรวมการตรวจสอบ"}
+    ]
+  },
+  "network_growth": {
+    "months": ["เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย."],
+    "total_orgs": [14, 19, 27, 34, 41, 52],
+    "casters": [6, 8, 11, 14, 17, 21],
+    "finishers": [7, 10, 14, 17, 21, 27],
+    "both": [1, 1, 2, 3, 3, 4],
+    "insight": "ฐานเครือข่ายโตต่อเนื่องทุกเดือน โดยกลุ่ม Finisher เป็นสัดส่วนใหญ่สุด ณ เดือน ก.ย."
+  },
+  "matching_funnel": {
+    "requirements_posted": 96,
+    "matches_generated": 412,
+    "matches_accepted": 158,
+    "quotes_submitted": 121,
+    "job_orders_created": 74,
+    "avg_match_score": 78.4,
+    "score_buckets": ["0–40", "40–60", "60–80", "80–100"],
+    "score_bucket_counts": [12, 58, 210, 132],
+    "derived": {
+      "match_acceptance_pct": 38.3,
+      "quote_to_job_order_pct": 61.2,
+      "requirement_to_job_order_pct": 77.1
+    },
+    "insight": "จาก 412 matches ที่ระบบสร้างขึ้น มี 158 รายการที่ได้รับการตอบรับ และ 74 รายการพัฒนาเป็น Job Order"
+  },
+  "production": {
+    "status_breakdown": {
+      "kickoff": 9,
+      "in_production": 21,
+      "qc_review": 6,
+      "completed": 35,
+      "concession_review": 3
+    },
+    "yield_trend_months": ["เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย."],
+    "avg_yield_rate": [93.1, 94.0, 95.2, 94.6, 96.1, 96.8],
+    "qc_pass_rate": 97.3,
+    "derived": {
+      "completed_share_pct": 47.3,
+      "yield_change_pp": 3.7,
+      "active_jobs": 39
+    },
+    "insight": "Yield เพิ่มจาก 93.1% เป็น 96.8% ภายในช่วง 6 เดือนที่ติดตาม"
+  },
+  "quality_control": {
+    "shots_monitored_monthly": 128400,
+    "early_catch_rate_pct": 82,
+    "scrap_reduction_pct": 34,
+    "methods": [
+      {
+        "step": "01",
+        "icon": "◉",
+        "name": "Thermal Imaging",
+        "title_th": "กล้องตรวจจับความร้อน",
+        "desc": "สแกนลายความร้อนของชิ้นงานจากกระบวนการหล่อแบบเรียลไทม์ เปรียบเทียบกับค่ามาตรฐาน และแจ้งเตือนความผิดปกติทันที"
+      },
+      {
+        "step": "02",
+        "icon": "⌁",
+        "name": "Dimensional Sampling",
+        "title_th": "สุ่มตรวจขนาดชิ้นงาน",
+        "desc": "สุ่มวัดชิ้นงานเทียบกับแบบและ Spec ด้วยเครื่องมือวัดละเอียด ก่อนปล่อยล็อตเข้าสู่ขั้นตอนถัดไป"
+      },
+      {
+        "step": "03",
+        "icon": "↻",
+        "name": "Post-Processing Tracking",
+        "title_th": "ติดตามหลังการหล่อ",
+        "desc": "บันทึกสถานะของขั้นตอนตัด Creep, ขัดผิว, CNC และ Anodizing ทีละขั้น เพื่อให้ตรวจสอบ flow ได้ครบ"
+      },
+      {
+        "step": "04",
+        "icon": "✓",
+        "name": "Final QC Report",
+        "title_th": "รายงาน QC ก่อนส่งมอบ",
+        "desc": "สรุปผลตรวจของแต่ละล็อต พร้อมลายเซ็นดิจิทัลของผู้ตรวจสอบ เพื่อรองรับการย้อนตรวจภายหลัง"
+      }
+    ],
+    "insight": "การตรวจสอบถูกวางไว้หลายจุด เพื่อให้มองเห็นความผิดปกติก่อนกลายเป็นต้นทุนปลายทาง"
+  },
+  "materials": {
+    "labels": ["ADC12", "A380", "ZA-8", "อื่นๆ"],
+    "share_pct": [54, 21, 12, 13],
+    "insight": "ADC12 เป็นวัสดุที่ถูกใช้งานมากที่สุด คิดเป็น 54% ของงานในชุดข้อมูลตัวอย่าง"
+  },
+  "top_processes": {
+    "labels": ["CNC Machining", "Anodizing", "Powder Coating", "Die Casting HPDC", "Deburring"],
+    "requirement_count": [41, 29, 22, 19, 14],
+    "insight": "CNC Machining เป็น capability ที่ถูกขอมากที่สุดในช่วงข้อมูลนี้"
+  },
+  "partner_spotlight": [
+    {"rank": 1, "name": "พรีซิชั่น เมทัล เวิร์คส์", "type": "finisher", "province": "ชลบุรี", "matches_accepted": 18, "avg_yield_rate": 96.4, "tag": "ยอดจับคู่สูง"},
+    {"rank": 2, "name": "สยามไดคาสติ้ง จำกัด", "type": "caster", "province": "สมุทรปราการ", "matches_accepted": 15, "avg_yield_rate": 95.1, "tag": "งานต่อเนื่อง"},
+    {"rank": 3, "name": "บางปูซีเอ็นซี", "type": "finisher", "province": "สมุทรปราการ", "matches_accepted": 12, "avg_yield_rate": 94.8, "tag": "Capability ใหม่"},
+    {"rank": 4, "name": "ระยองอโนไดซ์", "type": "finisher", "province": "ระยอง", "matches_accepted": 9, "avg_yield_rate": 97.0, "tag": "Yield เด่น"},
+    {"rank": 5, "name": "อีสเทิร์นไดคาสต์", "type": "caster", "province": "ชลบุรี", "matches_accepted": 8, "avg_yield_rate": 93.6, "tag": "กำลังเติบโต"}
+  ],
+  "recent_activity": [
+    {"date": "2026-09-30", "type": "Job Order", "status": "new", "text": "สยามไดคาสติ้งยืนยันใบเสนอราคาจากพรีซิชั่น เมทัล เวิร์คส์ และสร้าง Job Order ใหม่ “Motor Housing Z-2046”"},
+    {"date": "2026-09-28", "type": "Match", "status": "accepted", "text": "ระยองอโนไดซ์ตอบรับ Match คะแนน 91.2 จากบางปูอัลลอยด์"},
+    {"date": "2026-09-25", "type": "Requirement", "status": "open", "text": "อีสเทิร์นไดคาสต์ประกาศ Requirement ใหม่: หา Finisher สำหรับ CNC + พ่นสีฝุ่น 12,000 ชิ้น"},
+    {"date": "2026-09-22", "type": "Capability", "status": "updated", "text": "บางปูซีเอ็นซีเพิ่ม Capability: Anodizing ทนรอยขีดข่วน กำลังผลิต 60,000 ชิ้น/เดือน"},
+    {"date": "2026-09-18", "type": "QC", "status": "passed", "text": "Job Order “Bracket Assembly R-1180” ผ่าน QC ครบ 100% และส่งมอบตรงเวลา"},
+    {"date": "2026-09-14", "type": "Partner", "status": "verified", "text": "พรีซิชั่น เมทัล เวิร์คส์เข้าร่วมแพลตฟอร์ม พร้อมยืนยันใบรับรอง ISO 9001"},
+    {"date": "2026-09-10", "type": "Matching", "status": "processed", "text": "ระบบประมวลผล Requirement ชุดใหม่ 8 รายการ ด้วยคะแนนเฉลี่ย 81.6"},
+    {"date": "2026-09-05", "type": "Job Order", "status": "completed", "text": "สยามไดคาสติ้งปิดงาน Job Order 3 รายการ ด้วย Yield Rate เฉลี่ย 96.2%"}
+  ]
+}

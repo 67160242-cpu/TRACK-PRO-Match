@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0c1f2b">
+<title>TRACK-PRO Match — Manufacturing Network Intelligence</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b1d28; --ink-2:#173140; --muted:#64737d; --line:#dfe7eb; --paper:#f6f3ed; --white:#ffffff;
+  --accent:#16b8a7; --accent-2:#6de7db; --night:#0d2230; --shadow:0 18px 48px rgba(13,34,48,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Noto Sans Thai','DM Sans',sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden}
+a{color:inherit}.wrap{width:min(1160px,calc(100% - 40px));margin:0 auto}
+.mono,.eyebrow{font-family:'Space Grotesk',sans-serif}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(13,34,48,.72);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-weight:700}
+.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#68e3d7);display:grid;place-items:center;color:var(--night);box-shadow:0 6px 22px rgba(22,184,167,.28)}
+.brand small{display:block;color:#9db1bc;font-size:10px;font-weight:500;margin-top:-2px}.nav-links{display:flex;align-items:center;gap:24px;color:#c7d5dc;font-size:13px}.nav-links a{text-decoration:none;opacity:.88;transition:.2s}.nav-links a:hover{opacity:1;color:#fff}
+.nav-cta{padding:9px 14px;border:1px solid rgba(255,255,255,.18);border-radius:999px;color:#fff!important;background:rgba(255,255,255,.06)}
+@media(max-width:820px){.nav-links a:not(.nav-cta){display:none}}
+.hero{position:relative;min-height:880px;padding:150px 0 110px;color:#fff;background:radial-gradient(circle at 14% 18%,rgba(22,184,167,.18),transparent 25%),radial-gradient(circle at 86% 22%,rgba(93,165,216,.12),transparent 22%),linear-gradient(155deg,#081924 0%,#0e2b3b 52%,#0e2230 100%);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 80%)}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(1px);opacity:.55;animation:float 7s ease-in-out infinite}.orb-a{width:220px;height:220px;right:10%;top:120px;background:radial-gradient(circle at 35% 30%,#c9bb9a 0 7%,#5b685f 30%,#1b2f39 72%);box-shadow:inset 12px 10px 30px rgba(255,255,255,.12),0 30px 70px rgba(0,0,0,.35)}
+.orb-b{width:110px;height:110px;left:8%;bottom:90px;background:radial-gradient(circle at 35% 30%,#d9b28c 0 8%,#5c2031 40%,#201923 72%);animation-delay:1.4s}.orb-c{width:76px;height:76px;right:31%;bottom:180px;background:radial-gradient(circle at 30% 24%,#ffffff 0 4%,#9bc2c5 26%,#304857 72%);animation-delay:.5s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:35px}.hero{min-height:auto;padding-bottom:90px}.orb-a{right:-80px;top:170px;opacity:.35}}
+.hero h1{font-family:'Space Grotesk','Noto Sans Thai',sans-serif;font-size:clamp(44px,7vw,86px);line-height:.98;letter-spacing:-.045em;margin:14px 0 24px;max-width:800px}.hero h1 em{font-style:normal;color:var(--accent-2)}.hero p{max-width:680px;color:#b9c8cf;font-size:16px;margin:0}
+.hero-actions{display:flex;align-items:center;gap:12px;margin-top:34px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:13px 18px;border-radius:999px;font-size:13px;font-weight:700;transition:.2s;cursor:pointer}.btn-primary{background:var(--accent);color:#06221f;box-shadow:0 10px 30px rgba(22,184,167,.20)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(22,184,167,.28)}.btn-ghost{border:1px solid rgba(255,255,255,.16);color:#fff;background:rgba(255,255,255,.05)}
+.hero-panel{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border-radius:28px;padding:22px;box-shadow:0 30px 70px rgba(0,0,0,.26)}.panel-top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:18px}.status{display:inline-flex;align-items:center;gap:8px;color:#dcebe9;font-size:11px;letter-spacing:.08em;text-transform:uppercase}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px rgba(22,184,167,.12)}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini-stat{padding:15px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.12)}.mini-value{font:600 28px/1 'Space Grotesk';color:#fff}.mini-label{margin-top:7px;color:#97acb6;font-size:11px}.hero-foot{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09);display:flex;justify-content:space-between;gap:12px;color:#8da3ae;font-size:11px}
+.section{padding:110px 0}.section.alt{background:#ece7de}.section.dark{background:var(--night);color:#f6fbfb}.section-head{display:flex;justify-content:space-between;gap:40px;align-items:flex-end;margin-bottom:38px}.section-head>div:last-child{max-width:590px}.section h2{font-family:'Space Grotesk','Noto Sans Thai',sans-serif;font-size:clamp(34px,5vw,58px);line-height:1.02;letter-spacing:-.04em;margin:8px 0 0}.section p.lead{font-size:15px;color:var(--muted);max-width:700px;margin:0}.dark p.lead{color:#b2c1c8}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0}@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.kpi-grid{grid-template-columns:1fr}}
+.kpi{position:relative;padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.72);box-shadow:0 10px 28px rgba(13,34,48,.05);overflow:hidden}.dark .kpi{border-color:rgba(255,255,255,.09);background:rgba(255,255,255,.05);box-shadow:none}.kpi::after{content:"";position:absolute;right:-26px;bottom:-26px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(22,184,167,.14),transparent 66%)}
+.kpi-value{font:600 clamp(31px,4vw,48px)/1 'Space Grotesk';letter-spacing:-.04em;color:var(--ink)}.dark .kpi-value{color:#fff}.kpi-label{font-size:13px;font-weight:700;margin-top:10px}.kpi-detail{font-size:11px;color:var(--muted);margin-top:3px}.dark .kpi-detail{color:#8ea4af}
+.grid-2{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}@media(max-width:920px){.grid-2,.grid-3{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}}
+.card{border:1px solid var(--line);background:#fff;border-radius:24px;padding:22px;box-shadow:var(--shadow)}.dark .card{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.09);box-shadow:none}.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}.card-title{font-size:14px;font-weight:700;margin:0}.card-meta{font:11px 'Space Grotesk';color:var(--muted)}.dark .card-meta{color:#8da2ad}.canvas-wrap{height:310px;position:relative}
+.insight{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:13px 15px;border-radius:16px;background:#f4f7f8;color:#53646d;font-size:12px}.dark .insight{background:rgba(255,255,255,.06);color:#afc0c7}.insight strong{color:var(--ink)}.dark .insight strong{color:#fff}
+.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:900px){.workflow{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.workflow{grid-template-columns:1fr}}.step{padding:18px;border:1px solid rgba(255,255,255,.10);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));min-height:205px;position:relative;overflow:hidden}.step::after{content:"";position:absolute;width:90px;height:90px;right:-25px;top:-25px;border-radius:50%;background:rgba(22,184,167,.12)}.step-num{font:600 12px 'Space Grotesk';color:var(--accent-2)}.step-icon{font:26px 'Space Grotesk';margin:22px 0 10px;color:#fff}.step h3{margin:0 0 4px;font-size:14px}.step p{margin:0;color:#96aab4;font-size:11px;line-height:1.65}
+.score{margin-top:18px;padding:22px;border-radius:22px;background:linear-gradient(145deg,#173a49,#102b39);border:1px solid rgba(255,255,255,.1);display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end}@media(max-width:650px){.score{grid-template-columns:1fr}}.score-main{font:600 68px/.9 'Space Grotesk';letter-spacing:-.06em;color:#fff}.score-label{font-size:11px;color:#a7bbc4;margin-top:8px}.score-bar{height:12px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}.score-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 0 18px rgba(22,184,167,.28)}
+.table-card{overflow:hidden;padding:0}.table-scroll{overflow:auto}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:16px 18px;border-bottom:1px solid var(--line);text-align:left;font-size:12px;white-space:nowrap}th{font:10px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#788890;background:#fbfcfc}tr:last-child td{border-bottom:0}.rank{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#edf5f4;color:#168f84;font:600 11px 'Space Grotesk'}.partner{font-weight:700}.pill{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#edf6f4;color:#147c73;font-size:10px;font-weight:700}.rate{font:600 13px 'Space Grotesk'}
+.timeline{position:relative;margin-top:8px}.timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:1px;background:rgba(255,255,255,.12)}.event{position:relative;padding-left:34px;padding-bottom:25px}.event:last-child{padding-bottom:0}.event-dot{position:absolute;left:0;top:4px;width:17px;height:17px;border-radius:50%;border:4px solid var(--night);background:var(--accent);box-shadow:0 0 0 1px rgba(22,184,167,.4)}.event-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.event-date{font:11px 'Space Grotesk';color:#7f96a2}.event-type{font-size:10px;padding:3px 7px;border:1px solid rgba(255,255,255,.11);border-radius:999px;color:#abc0c7}.event-text{margin-top:6px;color:#e3ecef;font-size:13px;max-width:830px}
+.final-cta{padding:112px 0;text-align:center;background:linear-gradient(135deg,#0b1d28,#13384b)}.final-cta h2{font:600 clamp(40px,7vw,76px)/1 'Space Grotesk';letter-spacing:-.045em;color:#fff;margin:10px auto 16px;max-width:900px}.final-cta p{color:#9fb3bc;max-width:640px;margin:0 auto}.final-cta .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px}.footer{padding:28px 0;color:#7b8b93;background:#0a1a23;font-size:10px}.footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.in{opacity:1;transform:none}.counting{font-variant-numeric:tabular-nums}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap nav-inner">
+  <a class="brand" href="#top"><span class="brand-mark">↗</span><span>TRACK-PRO <small>MATCH / NETWORK INTELLIGENCE</small></span></a>
+  <div class="nav-links"><a href="#network">เครือข่าย</a><a href="#quality">คุณภาพ</a><a href="#matching">Matching</a><a href="#partners">Partners</a><a class="nav-cta" href="#contact">คุยกับทีม →</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <span class="hero-orb orb-a"></span><span class="hero-orb orb-b"></span><span class="hero-orb orb-c"></span>
+  <div class="wrap hero-grid">
+    <div><div class="eyebrow">Manufacturing Network Intelligence · Sep 2026</div><h1>ทำให้การผลิต<br><em>มองเห็นได้ทั้งเครือข่าย</em></h1>
+      <p>จากโรงหล่อ → Finishing → QC → Job Order ทุกความสัมพันธ์ถูกเชื่อมให้อ่านง่าย ตรวจสอบได้ และตัดสินใจจากข้อมูลชุดเดียว</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="#network">สำรวจภาพรวม ↘</a><a class="btn btn-ghost" href="#quality">ดูระบบ QC</a></div>
+    </div>
+    <aside class="hero-panel reveal"><div class="panel-top"><div class="status"><span class="status-dot"></span>ระบบติดตามพร้อมใช้งาน</div><div class="mono" style="font-size:11px;color:#7f98a4">AS OF <span id="asOf">—</span></div></div><div class="mini-grid" id="heroStats"></div><div class="hero-foot"><span>Sample dataset · TRACK-PRO Match</span><span>01 / 06</span></div></aside>
+  </div>
+</header>
+
+<section class="section" id="network"><div class="wrap reveal">
+  <div class="section-head"><div><div class="eyebrow">01 / Network</div><h2>เครือข่ายที่โตขึ้น<br>ทุกเดือน</h2></div><div><p class="lead" id="networkLead"></p></div></div>
+  <div class="kpi-grid" id="networkKpis"></div>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><div><div class="card-title">Network Growth</div><div class="card-meta">จำนวนองค์กรสะสม / ประเภท</div></div><div class="card-meta">เม.ย.–ก.ย. 2026</div></div><div class="canvas-wrap"><canvas id="chartGrowth"></canvas></div><div class="insight"><strong>อ่านภาพนี้อย่างไร?</strong><span id="networkInsight"></span></div></div>
+    <div class="card" style="background:linear-gradient(145deg,#f8f5ef,#efe8dd)"><div class="card-head"><div><div class="card-title">Network Mix</div><div class="card-meta">โครงสร้างองค์กร ณ ก.ย.</div></div></div><div class="canvas-wrap"><canvas id="chartMix"></canvas></div><div class="insight"><strong>จุดสังเกต</strong><span>Finisher มีฐานองค์กรใหญ่ที่สุด ขณะที่ผู้ให้บริการทั้งสองด้านยังเป็นกลุ่มเล็กแต่มีความยืดหยุ่นสูง</span></div></div>
+  </div>
+</div></section>
+
+<section class="section dark" id="quality"><div class="wrap reveal">
+  <div class="section-head"><div><div class="eyebrow">02 / Quality Control</div><h2>คุณภาพไม่ได้เกิด<br>ที่ปลายสายพาน</h2></div><div><p class="lead">ออกแบบจุดตรวจตั้งแต่ต้นทาง พร้อมข้อมูลที่ย้อนกลับไปดูได้ว่าความผิดปกติเกิดขึ้นตรงไหน ก่อนจะกลายเป็นต้นทุนการแก้ไข</p></div></div>
+  <div class="kpi-grid" id="qcKpis"></div><div class="workflow" id="qcMethods"></div>
+  <div class="grid-2" style="margin-top:18px"><div class="card"><div class="card-head"><div><div class="card-title">Yield Rate Trend</div><div class="card-meta">สัดส่วนชิ้นงานที่ผ่านมาตรฐาน</div></div><div class="card-meta">%</div></div><div class="canvas-wrap"><canvas id="chartYield"></canvas></div><div class="insight"><strong>แนวโน้ม</strong><span id="yieldInsight"></span></div></div>
+    <div class="score"><div><div class="eyebrow">QC PASS RATE</div><div class="score-main counting" id="qcPass">—</div><div class="score-label">อัตราผ่าน QC จากภาพรวมชุดข้อมูล</div></div><div><div class="card-meta" style="color:#9fb3bc;margin-bottom:9px">ความสม่ำเสมอของกระบวนการ</div><div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div><div class="card-meta" style="margin-top:10px;color:#9fb3bc">Early catch <span id="earlyCatch">—</span> · Scrap reduction <span id="scrapReduction">—</span></div></div></div>
+  </div>
+</div></section>
+
+<section class="section alt" id="matching"><div class="wrap reveal">
+  <div class="section-head"><div><div class="eyebrow">03 / Matching Engine</div><h2>ทุกการจับคู่<br>อธิบายได้</h2></div><div><p class="lead">ระบบไม่ใช่กล่องดำ: Requirement ถูกส่งผ่าน scoring flow ก่อนกลายเป็น Match, ใบเสนอราคา และ Job Order ที่ตรวจสอบเส้นทางย้อนหลังได้</p></div></div>
+  <div class="kpi-grid" id="matchKpis"></div><div class="grid-2">
+    <div class="card"><div class="card-head"><div><div class="card-title">Conversion Flow</div><div class="card-meta">Requirement → Job Order</div></div></div><div class="canvas-wrap"><canvas id="chartFunnel"></canvas></div><div class="insight"><strong>Conversion</strong><span id="conversionInsight"></span></div></div>
+    <div class="card"><div class="card-head"><div><div class="card-title">Match Score Distribution</div><div class="card-meta">ช่วงคะแนนความเหมาะสม</div></div></div><div class="canvas-wrap"><canvas id="chartScore"></canvas></div><div class="insight"><strong>ค่าเฉลี่ย</strong><span><b id="avgScore">—</b> / 100 โดยกลุ่มคะแนน 60–100 เป็นสัดส่วนหลักของ matches ที่สร้างขึ้น</span></div></div>
+  </div>
+</div></section>
+
+<section class="section dark"><div class="wrap reveal">
+  <div class="section-head"><div><div class="eyebrow">04 / Production Pulse</div><h2>งานที่กำลัง<br>เดินอยู่จริง</h2></div><div><p class="lead">ดูสถานะ Job Order, mix ของวัสดุ และ capability ที่ถูกขอมากที่สุด เพื่อเห็นภาวะการผลิตในภาพเดียว</p></div></div>
+  <div class="grid-3"><div class="card"><div class="card-head"><div><div class="card-title">Job Order Status</div><div class="card-meta">74 งาน</div></div></div><div class="canvas-wrap"><canvas id="chartStatus"></canvas></div></div><div class="card"><div class="card-head"><div><div class="card-title">Material Mix</div><div class="card-meta">สัดส่วนการใช้งาน</div></div></div><div class="canvas-wrap"><canvas id="chartMaterial"></canvas></div></div><div class="card"><div class="card-head"><div><div class="card-title">Top Processes</div><div class="card-meta">จำนวน Requirement</div></div></div><div class="canvas-wrap"><canvas id="chartProcess"></canvas></div></div></div>
+  <div class="insight" style="margin-top:18px"><strong>Production pulse</strong><span id="productionInsight"></span></div>
+</div></section>
+
+<section class="section" id="partners"><div class="wrap reveal">
+  <div class="section-head"><div><div class="eyebrow">05 / Partner Spotlight</div><h2>พาร์ทเนอร์ที่<br>น่าจับตา</h2></div><div><p class="lead">จัดอันดับจากจำนวนการจับคู่ที่ตอบรับ พร้อมดู Yield Rate ควบคู่ เพื่อไม่ให้ “ปริมาณ” มาก่อน “คุณภาพ”</p></div></div>
+  <div class="card table-card"><div class="table-scroll"><table><thead><tr><th>#</th><th>องค์กร</th><th>ประเภท</th><th>จังหวัด</th><th>จับคู่สำเร็จ</th><th>Yield</th><th>ภาพรวม</th></tr></thead><tbody id="partnerRows"></tbody></table></div></div>
+</div></section>
+
+<section class="section dark"><div class="wrap reveal">
+  <div class="section-head"><div><div class="eyebrow">06 / Activity Feed</div><h2>เรื่องล่าสุด<br>ในเครือข่าย</h2></div><div><p class="lead">เหตุการณ์สำคัญจากระบบเรียงตามเวลา ตั้งแต่การประกาศ Requirement ไปจนถึงการปิด Job Order</p></div></div>
+  <div class="timeline" id="activityTimeline"></div>
+</div></section>
+
+<section class="final-cta" id="contact"><div class="wrap reveal"><div class="eyebrow">NEXT MOVE</div><h2>เปลี่ยนข้อมูลการผลิต<br>ให้กลายเป็นการตัดสินใจที่เร็วขึ้น</h2><p>ประกาศ Requirement, เพิ่ม Capability หรือเปิด Job Order แล้วให้ทีมเห็นภาพเดียวกันตั้งแต่การจับคู่จนถึง QC</p><div class="actions"><a class="btn btn-primary" href="../frontend/partners.html">ไปที่หน้าจับคู่พาร์ทเนอร์ →</a><a class="btn btn-ghost" href="#top">กลับขึ้นด้านบน ↑</a></div></div></section>
+<footer class="footer"><div class="wrap"><span>TRACK-PRO Match · Manufacturing Network Intelligence</span><span id="footerNote">Sample dataset</span></div></footer>
+
+<script id="dashboardData" type="application/json">{
+  "meta": {
+    "product": "TRACK-PRO Match",
+    "title": "เครือข่ายการผลิตที่มองเห็นได้ตั้งแต่ต้นทางถึงส่งมอบ",
+    "period": "เม.ย.–ก.ย. 2026",
+    "as_of": "2026-09-30",
+    "data_status": "SAMPLE DATA",
+    "description": "ข้อมูลตัวอย่างที่จำลองตาม schema ของ TRACK-PRO Match เพื่อสื่อสารภาพรวมเครือข่าย การจับคู่ และคุณภาพงาน ไม่ใช่ข้อมูล production database"
+  },
+  "executive_summary": {
+    "headline": "จาก 14 สู่องค์กรในเครือข่าย 52 แห่งภายใน 6 เดือน",
+    "body": "TRACK-PRO Match เชื่อมโรงหล่อและโรงงานกึ่งโลหะให้ค้นหา capability ที่ตรงกัน พร้อมติดตามการจับคู่ ใบเสนอราคา Job Order และผล QC ได้ใน flow เดียว",
+    "highlights": [
+      {"value": "52", "label": "องค์กรในเครือข่าย", "detail": "+271% จากจุดเริ่มต้น"},
+      {"value": "78.4", "label": "คะแนนจับคู่เฉลี่ย", "detail": "เต็ม 100"},
+      {"value": "96.8%", "label": "Yield ล่าสุด", "detail": "+3.7 จุด จาก เม.ย."},
+      {"value": "97.3%", "label": "QC pass rate", "detail": "จากภาพรวมการตรวจสอบ"}
+    ]
+  },
+  "network_growth": {
+    "months": ["เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย."],
+    "total_orgs": [14, 19, 27, 34, 41, 52],
+    "casters": [6, 8, 11, 14, 17, 21],
+    "finishers": [7, 10, 14, 17, 21, 27],
+    "both": [1, 1, 2, 3, 3, 4],
+    "insight": "ฐานเครือข่ายโตต่อเนื่องทุกเดือน โดยกลุ่ม Finisher เป็นสัดส่วนใหญ่สุด ณ เดือน ก.ย."
+  },
+  "matching_funnel": {
+    "requirements_posted": 96,
+    "matches_generated": 412,
+    "matches_accepted": 158,
+    "quotes_submitted": 121,
+    "job_orders_created": 74,
+    "avg_match_score": 78.4,
+    "score_buckets": ["0–40", "40–60", "60–80", "80–100"],
+    "score_bucket_counts": [12, 58, 210, 132],
+    "derived": {
+      "match_acceptance_pct": 38.3,
+      "quote_to_job_order_pct": 61.2,
+      "requirement_to_job_order_pct": 77.1
+    },
+    "insight": "จาก 412 matches ที่ระบบสร้างขึ้น มี 158 รายการที่ได้รับการตอบรับ และ 74 รายการพัฒนาเป็น Job Order"
+  },
+  "production": {
+    "status_breakdown": {
+      "kickoff": 9,
+      "in_production": 21,
+      "qc_review": 6,
+      "completed": 35,
+      "concession_review": 3
+    },
+    "yield_trend_months": ["เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย."],
+    "avg_yield_rate": [93.1, 94.0, 95.2, 94.6, 96.1, 96.8],
+    "qc_pass_rate": 97.3,
+    "derived": {
+      "completed_share_pct": 47.3,
+      "yield_change_pp": 3.7,
+      "active_jobs": 39
+    },
+    "insight": "Yield เพิ่มจาก 93.1% เป็น 96.8% ภายในช่วง 6 เดือนที่ติดตาม"
+  },
+  "quality_control": {
+    "shots_monitored_monthly": 128400,
+    "early_catch_rate_pct": 82,
+    "scrap_reduction_pct": 34,
+    "methods": [
+      {
+        "step": "01",
+        "icon": "◉",
+        "name": "Thermal Imaging",
+        "title_th": "กล้องตรวจจับความร้อน",
+        "desc": "สแกนลายความร้อนของชิ้นงานจากกระบวนการหล่อแบบเรียลไทม์ เปรียบเทียบกับค่ามาตรฐาน และแจ้งเตือนความผิดปกติทันที"
+      },
+      {
+        "step": "02",
+        "icon": "⌁",
+        "name": "Dimensional Sampling",
+        "title_th": "สุ่มตรวจขนาดชิ้นงาน",
+        "desc": "สุ่มวัดชิ้นงานเทียบกับแบบและ Spec ด้วยเครื่องมือวัดละเอียด ก่อนปล่อยล็อตเข้าสู่ขั้นตอนถัดไป"
+      },
+      {
+        "step": "03",
+        "icon": "↻",
+        "name": "Post-Processing Tracking",
+        "title_th": "ติดตามหลังการหล่อ",
+        "desc": "บันทึกสถานะของขั้นตอนตัด Creep, ขัดผิว, CNC และ Anodizing ทีละขั้น เพื่อให้ตรวจสอบ flow ได้ครบ"
+      },
+      {
+        "step": "04",
+        "icon": "✓",
+        "name": "Final QC Report",
+        "title_th": "รายงาน QC ก่อนส่งมอบ",
+        "desc": "สรุปผลตรวจของแต่ละล็อต พร้อมลายเซ็นดิจิทัลของผู้ตรวจสอบ เพื่อรองรับการย้อนตรวจภายหลัง"
+      }
+    ],
+    "insight": "การตรวจสอบถูกวางไว้หลายจุด เพื่อให้มองเห็นความผิดปกติก่อนกลายเป็นต้นทุนปลายทาง"
+  },
+  "materials": {
+    "labels": ["ADC12", "A380", "ZA-8", "อื่นๆ"],
+    "share_pct": [54, 21, 12, 13],
+    "insight": "ADC12 เป็นวัสดุที่ถูกใช้งานมากที่สุด คิดเป็น 54% ของงานในชุดข้อมูลตัวอย่าง"
+  },
+  "top_processes": {
+    "labels": ["CNC Machining", "Anodizing", "Powder Coating", "Die Casting HPDC", "Deburring"],
+    "requirement_count": [41, 29, 22, 19, 14],
+    "insight": "CNC Machining เป็น capability ที่ถูกขอมากที่สุดในช่วงข้อมูลนี้"
+  },
+  "partner_spotlight": [
+    {"rank": 1, "name": "พรีซิชั่น เมทัล เวิร์คส์", "type": "finisher", "province": "ชลบุรี", "matches_accepted": 18, "avg_yield_rate": 96.4, "tag": "ยอดจับคู่สูง"},
+    {"rank": 2, "name": "สยามไดคาสติ้ง จำกัด", "type": "caster", "province": "สมุทรปราการ", "matches_accepted": 15, "avg_yield_rate": 95.1, "tag": "งานต่อเนื่อง"},
+    {"rank": 3, "name": "บางปูซีเอ็นซี", "type": "finisher", "province": "สมุทรปราการ", "matches_accepted": 12, "avg_yield_rate": 94.8, "tag": "Capability ใหม่"},
+    {"rank": 4, "name": "ระยองอโนไดซ์", "type": "finisher", "province": "ระยอง", "matches_accepted": 9, "avg_yield_rate": 97.0, "tag": "Yield เด่น"},
+    {"rank": 5, "name": "อีสเทิร์นไดคาสต์", "type": "caster", "province": "ชลบุรี", "matches_accepted": 8, "avg_yield_rate": 93.6, "tag": "กำลังเติบโต"}
+  ],
+  "recent_activity": [
+    {"date": "2026-09-30", "type": "Job Order", "status": "new", "text": "สยามไดคาสติ้งยืนยันใบเสนอราคาจากพรีซิชั่น เมทัล เวิร์คส์ และสร้าง Job Order ใหม่ “Motor Housing Z-2046”"},
+    {"date": "2026-09-28", "type": "Match", "status": "accepted", "text": "ระยองอโนไดซ์ตอบรับ Match คะแนน 91.2 จากบางปูอัลลอยด์"},
+    {"date": "2026-09-25", "type": "Requirement", "status": "open", "text": "อีสเทิร์นไดคาสต์ประกาศ Requirement ใหม่: หา Finisher สำหรับ CNC + พ่นสีฝุ่น 12,000 ชิ้น"},
+    {"date": "2026-09-22", "type": "Capability", "status": "updated", "text": "บางปูซีเอ็นซีเพิ่ม Capability: Anodizing ทนรอยขีดข่วน กำลังผลิต 60,000 ชิ้น/เดือน"},
+    {"date": "2026-09-18", "type": "QC", "status": "passed", "text": "Job Order “Bracket Assembly R-1180” ผ่าน QC ครบ 100% และส่งมอบตรงเวลา"},
+    {"date": "2026-09-14", "type": "Partner", "status": "verified", "text": "พรีซิชั่น เมทัล เวิร์คส์เข้าร่วมแพลตฟอร์ม พร้อมยืนยันใบรับรอง ISO 9001"},
+    {"date": "2026-09-10", "type": "Matching", "status": "processed", "text": "ระบบประมวลผล Requirement ชุดใหม่ 8 รายการ ด้วยคะแนนเฉลี่ย 81.6"},
+    {"date": "2026-09-05", "type": "Job Order", "status": "completed", "text": "สยามไดคาสติ้งปิดงาน Job Order 3 รายการ ด้วย Yield Rate เฉลี่ย 96.2%"}
+  ]
+}
+</script>
+<script>
+const DATA=JSON.parse(document.getElementById('dashboardData').textContent);
+const FONT='Noto Sans Thai';
+const C={teal:'#16b8a7',tealLight:'#6de7db',ink:'#0b1d28,',muted:'#72828b',grid:'rgba(120,136,144,.16)'};
+C.ink='#0b1d28';
+const typeLabel={caster:'โรงหล่อ',finisher:'Finisher / กึ่งโลหะ',both:'ทั้งสองด้าน'};
+const $=id=>document.getElementById(id);const fmt=n=>Number(n).toLocaleString('th-TH');
+$('asOf').textContent=new Date(DATA.meta.as_of+'T00:00:00').toLocaleDateString('th-TH',{year:'numeric',month:'short',day:'numeric'});
+$('networkLead').textContent=DATA.network_growth.insight;$('networkInsight').textContent=DATA.network_growth.insight;$('yieldInsight').textContent=DATA.production.insight;
+$('conversionInsight').textContent=`จาก ${fmt(DATA.matching_funnel.requirements_posted)} Requirements สร้าง Job Order แล้ว ${fmt(DATA.matching_funnel.job_orders_created)} งาน หรือ ${DATA.matching_funnel.derived.requirement_to_job_order_pct}% ของฐาน Requirement`;
+$('avgScore').textContent=DATA.matching_funnel.avg_match_score;$('qcPass').textContent=DATA.production.qc_pass_rate+'%';$('scoreFill').style.width=DATA.production.qc_pass_rate+'%';
+$('earlyCatch').textContent=DATA.quality_control.early_catch_rate_pct+'%';$('scrapReduction').textContent='-'+DATA.quality_control.scrap_reduction_pct+'%';
+$('productionInsight').textContent=`มี Job Order ${fmt(Object.values(DATA.production.status_breakdown).reduce((a,b)=>a+b,0))} งาน โดย ${fmt(DATA.production.derived.active_jobs)} งานยังอยู่ในสถานะก่อนปิดงาน และ Yield ล่าสุดอยู่ที่ ${DATA.production.avg_yield_rate.at(-1)}%`;
+$('footerNote').textContent=`${DATA.meta.data_status} · ${DATA.meta.period} · อัปเดต ${$('asOf').textContent}`;
+$('heroStats').innerHTML=DATA.executive_summary.highlights.map(x=>`<div class="mini-stat"><div class="mini-value counting">${x.value}</div><div class="mini-label">${x.label} · ${x.detail}</div></div>`).join('');
+$('networkKpis').innerHTML=DATA.executive_summary.highlights.map(x=>`<div class="kpi"><div class="kpi-value counting">${x.value}</div><div class="kpi-label">${x.label}</div><div class="kpi-detail">${x.detail}</div></div>`).join('');
+$('qcKpis').innerHTML=`<div class="kpi"><div class="kpi-value counting">${fmt(DATA.quality_control.shots_monitored_monthly)}</div><div class="kpi-label">ชิ้นงานที่สแกน / เดือน</div><div class="kpi-detail">Thermal Imaging</div></div><div class="kpi"><div class="kpi-value counting">${DATA.quality_control.early_catch_rate_pct}%</div><div class="kpi-label">Early catch rate</div><div class="kpi-detail">จับความผิดปกติได้ตั้งแต่ต้นทาง</div></div><div class="kpi"><div class="kpi-value counting">-${DATA.quality_control.scrap_reduction_pct}%</div><div class="kpi-label">Scrap reduction</div><div class="kpi-detail">หลังใช้แนวทางตรวจความร้อน</div></div><div class="kpi"><div class="kpi-value counting">${DATA.production.avg_yield_rate.at(-1)}%</div><div class="kpi-label">Yield ล่าสุด</div><div class="kpi-detail">เพิ่ม ${DATA.production.derived.yield_change_pp} จุดจาก เม.ย.</div></div>`;
+$('matchKpis').innerHTML=`<div class="kpi"><div class="kpi-value counting">${fmt(DATA.matching_funnel.requirements_posted)}</div><div class="kpi-label">Requirements</div><div class="kpi-detail">รายการที่ประกาศ</div></div><div class="kpi"><div class="kpi-value counting">${fmt(DATA.matching_funnel.matches_generated)}</div><div class="kpi-label">Matches generated</div><div class="kpi-detail">ข้อเสนอที่ระบบสร้าง</div></div><div class="kpi"><div class="kpi-value counting">${DATA.matching_funnel.avg_match_score}</div><div class="kpi-label">Match score เฉลี่ย</div><div class="kpi-detail">เต็ม 100</div></div><div class="kpi"><div class="kpi-value counting">${fmt(DATA.matching_funnel.job_orders_created)}</div><div class="kpi-label">Job Orders</div><div class="kpi-detail">คิดเป็น ${DATA.matching_funnel.derived.requirement_to_job_order_pct}% ของ Requirement</div></div>`;
+$('qcMethods').innerHTML=DATA.quality_control.methods.map(m=>`<article class="step"><div class="step-num">${m.step}</div><div class="step-icon">${m.icon}</div><h3>${m.title_th}</h3><p>${m.desc}</p></article>`).join('');
+$('partnerRows').innerHTML=DATA.partner_spotlight.map(o=>`<tr><td><div class="rank">${o.rank}</div></td><td><div class="partner">${o.name}</div></td><td><span class="pill">${typeLabel[o.type]||o.type}</span></td><td>${o.province}</td><td><b>${o.matches_accepted}</b></td><td><span class="rate">${o.avg_yield_rate}%</span></td><td>${o.tag}</td></tr>`).join('');
+$('activityTimeline').innerHTML=DATA.recent_activity.map(a=>`<div class="event"><span class="event-dot"></span><div class="event-top"><span class="event-date">${a.date}</span><span class="event-type">${a.type}</span></div><div class="event-text">${a.text}</div></div>`).join('');
+
+const common={responsive:true,maintainAspectRatio:false,animation:{duration:850,easing:'easeOutQuart'},plugins:{legend:{labels:{font:{family:FONT,size:11},usePointStyle:true,pointStyle:'circle',padding:14,color:'#61717a'}},tooltip:{backgroundColor:'#0b1d28',titleFont:{family:FONT},bodyFont:{family:FONT},padding:12,cornerRadius:10}},scales:{x:{grid:{display:false},ticks:{font:{family:FONT,size:10},color:'#80909a'}},y:{grid:{color:C.grid},ticks:{font:{family:FONT,size:10},color:'#80909a'}}}};
+function chart(el,type,data,options={}){return new Chart($(el),{type,data,options:{...common,...options}})}
+const g=DATA.network_growth;
+chart('chartGrowth','line',{labels:g.months,datasets:[{label:'โรงหล่อ',data:g.casters,borderColor:C.teal,backgroundColor:'transparent',borderWidth:2.5,tension:.35,pointRadius:3,pointHoverRadius:5},{label:'Finisher',data:g.finishers,borderColor:'#7f8f95',backgroundColor:'transparent',borderWidth:2.5,tension:.35,pointRadius:3,pointHoverRadius:5},{label:'ทั้งสองด้าน',data:g.both,borderColor:C.tealLight,backgroundColor:'transparent',borderWidth:2,tension:.35,pointRadius:3,pointHoverRadius:5}]});
+const mix=[g.casters.at(-1),g.finishers.at(-1),g.both.at(-1)];chart('chartMix','doughnut',{labels:['โรงหล่อ','Finisher','ทั้งสองด้าน'],datasets:[{data:mix,backgroundColor:[C.teal,'#7f8f95',C.tealLight],borderWidth:0}]},{plugins:{legend:{position:'bottom'}},cutout:'68%'});
+const p=DATA.production;chart('chartYield','line',{labels:p.yield_trend_months,datasets:[{label:'Yield %',data:p.avg_yield_rate,borderColor:C.teal,backgroundColor:'rgba(22,184,167,.12)',fill:true,tension:.35,borderWidth:2.5,pointRadius:3}]},{plugins:{legend:{display:false}},scales:{y:{min:90,max:100}}});
+const f=DATA.matching_funnel;chart('chartFunnel','bar',{labels:['Requirement','Match','ตอบรับ','ใบเสนอราคา','Job Order'],datasets:[{data:[f.requirements_posted,f.matches_generated,f.matches_accepted,f.quotes_submitted,f.job_orders_created],backgroundColor:[C.teal,'#4cc9bd','#7adbd2','#93c7c1','#aac0bf'],borderRadius:8,borderSkipped:false}]},{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:C.grid}},y:{grid:{display:false}}}});
+chart('chartScore','bar',{labels:f.score_buckets,datasets:[{label:'Matches',data:f.score_bucket_counts,backgroundColor:['#a8b6ba','#7c8e95',C.tealLight,C.teal],borderRadius:8,borderSkipped:false}]},{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}});
+const statusLabels={kickoff:'Kick-off',in_production:'กำลังผลิต',qc_review:'รอตรวจ QC',completed:'เสร็จสมบูรณ์',concession_review:'ขอผ่อนผัน'};chart('chartStatus','doughnut',{labels:Object.keys(p.status_breakdown).map(k=>statusLabels[k]),datasets:[{data:Object.values(p.status_breakdown),backgroundColor:[C.teal,'#4f6e7a','#88a0aa','#9fded8','#bdc9cc'],borderWidth:0}]},{plugins:{legend:{position:'bottom'}},cutout:'64%'});
+chart('chartMaterial','doughnut',{labels:DATA.materials.labels,datasets:[{data:DATA.materials.share_pct,backgroundColor:[C.teal,'#60808b','#97a9af','#c6d0d2'],borderWidth:0}]},{plugins:{legend:{position:'bottom'}},cutout:'64%'});
+chart('chartProcess','bar',{labels:DATA.top_processes.labels,datasets:[{data:DATA.top_processes.requirement_count,backgroundColor:C.teal,borderRadius:8,borderSkipped:false}]},{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:C.grid},beginAtZero:true},y:{grid:{display:false}}}});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
